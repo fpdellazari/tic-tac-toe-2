@@ -1,7 +1,7 @@
+import Game from "../../components/Game";
+
 export default function App() {
     return (
-        <>
-            <p>Testando a aplicação</p>
-        </>
+        <Game />
     );
 }
