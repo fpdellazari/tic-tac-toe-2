@@ -4,12 +4,14 @@ import Square from "../Square";
 import './styles.css';
 
 export default function Board({ xIsNext, squares, onPlay }) {
-    const winner = calculateWinner(squares);
+    const [ winner, winnerLine ] = calculateWinner(squares) ?? [ null, null ];
     let status;
     if (winner) {
         status = "Vencedor: " + winner;
-    } else {
+    } else if (squares.some(item => item === null)){
         status = "Próximo Jogador: " + (xIsNext ? "X" : "O");
+    } else {        
+        status = "Empate";
     }
 
     function handleClick(i) {
@@ -20,8 +22,9 @@ export default function Board({ xIsNext, squares, onPlay }) {
     }
 
     const squaresList = squares.map((value, index) => {
+        const isHighLighted = winnerLine?.some(item => item === index) ?? false;
         return (
-            <Square value={value} onSquareClick={() => handleClick(index)} />
+            <Square key={index} value={value} isHighLighted={isHighLighted} onSquareClick={() => handleClick(index)} />
         );
     })
 
@@ -50,7 +53,7 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return [ squares[a], lines[i] ];
         }
     }
     return null;
