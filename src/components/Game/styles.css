@@ -1,3 +1,7 @@
+span {
+  font-size: 14px;
+}
+
 .game {
     display: flex;
     flex-direction: row;
