@@ -21,9 +21,7 @@ export default function Board({ xIsNext, squares, onPlay }) {
 
     const squaresList = squares.map((value, index) => {
         return (
-            <>
-                <Square value={value} onSquareClick={() => handleClick(index)} />
-            </>
+            <Square value={value} onSquareClick={() => handleClick(index)} />
         );
     })
 
